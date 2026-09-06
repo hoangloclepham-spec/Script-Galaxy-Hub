@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Galaxy Hub</title>
+
+<style>
+:root {
+    --bg: #050611;
+    --panel: rgba(15, 16, 35, 0.88);
+    --panel2: rgba(22, 20, 45, 0.95);
+    --purple: #8b3dff;
+    --purple2: #b15cff;
+    --blue: #38a7ff;
+    --text: #ffffff;
+    --muted: #a4a4bd;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at 80% 10%,
+            rgba(121, 49, 255, 0.2),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 20% 80%,
+            rgba(0, 128, 255, 0.12),
+            transparent 30%
+        ),
+        var(--bg);
+
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* =========================
+   STARS
+========================= */
+
+.stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.7;
+    box-shadow: 0 0 8px white;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    width: 100%;
+
+    backdrop-filter: blur(18px);
+
+    background: rgba(5, 6, 17, 0.75);
+
+    border-bottom:
+        1px solid
+        rgba(139, 61, 255, 0.2);
+}
+
+.nav-container {
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 16px 22px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: var(--purple2);
+}
+
+.nav-links {
+    display: flex;
+    gap: 22px;
+}
+
+.nav-links a {
+    color: var(--muted);
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 100px 22px 80px;
+
+    text-align: center;
+}
+
+.badge {
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    border:
+        1px solid
+        rgba(139, 61, 255, 0.5);
+
+    border-radius: 999px;
+
+    color: #cba8ff;
+
+    background:
+        rgba(139, 61, 255, 0.1);
+
+    font-size: 13px;
+}
+
+.hero h1 {
+    font-size:
+        clamp(45px, 9vw, 95px);
+
+    margin-top: 25px;
+
+    letter-spacing: -3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            white,
+            #b77cff,
+            #5caaff
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    max-width: 650px;
+
+    margin: 25px auto;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+
+    font-size: 17px;
+}
+
+.buttons {
+    margin-top: 35px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+.btn {
+    border: none;
+
+    padding: 14px 24px;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition: 0.25s;
+}
+
+.primary {
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    color: white;
+
+    box-shadow:
+        0 0 25px
+        rgba(139, 61, 255, 0.4);
+}
+
+.primary:hover {
+    transform: translateY(-3px);
+}
+
+.secondary {
+    background:
+        rgba(255,255,255,0.05);
+
+    color: white;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.12);
+}
+
+.secondary:hover {
+    background:
+        rgba(255,255,255,0.09);
+}
+
+/* =========================
+   SECTION
+========================= */
+
+section {
+    max-width: 1100px;
+
+    margin: auto;
+
+    padding: 70px 22px;
+}
+
+.section-title {
+    text-align: center;
+
+    margin-bottom: 45px;
+}
+
+.section-title h2 {
+    font-size: 35px;
+}
+
+.section-title p {
+    color: var(--muted);
+
+    margin-top: 12px;
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.features {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(210px, 1fr)
+        );
+
+    gap: 18px;
+}
+
+.card {
+    padding: 25px;
+
+    background: var(--panel);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    border-radius: 18px;
+
+    transition: 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+
+    border-color:
+        rgba(139, 61, 255, 0.7);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,0.3);
+}
+
+.icon {
+    font-size: 30px;
+
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: var(--muted);
+
+    line-height: 1.5;
+
+    font-size: 14px;
+}
+
+/* =========================
+   SCRIPT
+========================= */
+
+.script-box {
+    background: var(--panel2);
+
+    border:
+        1px solid
+        rgba(139, 61, 255, 0.4);
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,0.25);
+}
+
+.script-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+    gap: 15px;
+}
+
+.version {
+    color: #caa8ff;
+
+    background:
+        rgba(139,61,255,0.15);
+
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+}
+
+pre {
+    white-space: pre-wrap;
+
+    word-break: break-word;
+
+    background: #090a14;
+
+    padding: 20px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.06);
+
+    color: #b9ffb1;
+
+    overflow-x: auto;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+.copy-btn {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    transition: 0.2s;
+}
+
+.copy-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(139,61,255,0.3);
+}
+
+.copy-btn:active {
+    transform: scale(0.98);
+}
+
+/* =========================
+   UPDATE
+========================= */
+
+.update {
+    padding: 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    flex-wrap: wrap;
+
+    background: var(--panel);
+
+    border-radius: 15px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+}
+
+.update p {
+    color: var(--muted);
+
+    margin-top: 7px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 50px 20px;
+
+    text-align: center;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,0.06);
+
+    color: var(--muted);
+}
+
+footer b {
+    color: white;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        padding-top: 70px;
+    }
+
+    .hero h1 {
+        letter-spacing: -2px;
+    }
+
+    section {
+        padding: 55px 18px;
+    }
+
+    .script-box {
+        padding: 15px;
+    }
+
+    pre {
+        padding: 15px;
+
+        font-size: 11px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     STAR BACKGROUND
+========================= -->
+
+<div class="stars" id="stars"></div>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav>
+
+<div class="nav-container">
+
+<div class="logo">
+🌌 GALAXY <span>HUB</span>
+</div>
+
+<div class="nav-links">
+
+<a href="#home">Home</a>
+
+<a href="#features">Features</a>
+
+<a href="#script">Script</a>
+
+<a href="#updates">Updates</a>
+
+</div>
+
+</div>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<div
+    class="hero"
+    id="home"
+>
+
+<div class="badge">
+GALAXY HUB • OFFICIAL
+</div>
+
+<h1>
+GALAXY HUB
+</h1>
+
+<p>
+A powerful hub with a futuristic interface,
+performance tools and useful features.
+</p>
+
+<div class="buttons">
+
+<a
+    href="#script"
+    class="btn primary"
+>
+🚀 GET SCRIPT
+</a>
+
+<a
+    href="#features"
+    class="btn secondary"
+>
+VIEW FEATURES
+</a>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section id="features">
+
+<div class="section-title">
+
+<h2>
+✨ FEATURES
+</h2>
+
+<p>
+Everything inside Galaxy Hub.
+</p>
+
+</div>
+
+
+<div class="features">
+
+<div class="card">
+
+<div class="icon">
+🏃
+</div>
+
+<h3>
+Movement
+</h3>
+
+<p>
+Speed, Jump Power and movement tools.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">
+👥
+</div>
+
+<h3>
+Player
+</h3>
+
+<p>
+Player list and player management tools.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">
+👁️
+</div>
+
+<h3>
+Visual
+</h3>
+
+<p>
+Visual settings and interface effects.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">
+⚡
+</div>
+
+<h3>
+Performance
+</h3>
+
+<p>
+Optimization tools and FPS information.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCRIPT
+========================= -->
+
+<section id="script">
+
+<div class="section-title">
+
+<h2>
+📜 GALAXY HUB SCRIPT
+</h2>
+
+<p>
+Copy the official Galaxy Hub loader.
+</p>
+
+</div>
+
+
+<div class="script-box">
+
+<div class="script-header">
+
+<h3>
+Galaxy Hub Loader
+</h3>
+
+<div class="version">
+v1.0.0
+</div>
+
+</div>
+
+
+<pre id="scriptCode">loadstring(game:HttpGet("https://apexhubeditor.vercel.app/api/raw?name=GxAh207HjyUbW6iq4fxNlqwAcS72_galaxy-hub"))()</pre>
+
+
+<button
+    class="copy-btn"
+    onclick="copyScript()"
+    id="copyButton"
+>
+📋 COPY SCRIPT
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     UPDATES
+========================= -->
+
+<section id="updates">
+
+<div class="section-title">
+
+<h2>
+🔔 LATEST UPDATES
+</h2>
+
+<p>
+Galaxy Hub development updates.
+</p>
+
+</div>
+
+
+<div class="update">
+
+<div>
+
+<b>
+v1.0.0 • Initial Release
+</b>
+
+<p>
+Galaxy Hub website is now online.
+</p>
+
+</div>
+
+<div class="version">
+LATEST
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<p>
+© 2026 <b>Galaxy Hub</b>
+</p>
+
+<br>
+
+<p>
+Created by LocNerin 🌌
+</p>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   CREATE STARS
+========================= */
+
+const stars =
+    document.getElementById("stars");
+
+for (let i = 0; i < 120; i++) {
+
+    const star =
+        document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left =
+        Math.random() * 100 + "%";
+
+    star.style.top =
+        Math.random() * 100 + "%";
+
+    star.style.opacity =
+        Math.random();
+
+    star.style.transform =
+        `scale(${Math.random() * 1.5})`;
+
+    stars.appendChild(star);
+}
+
+
+/* =========================
+   COPY SCRIPT
+========================= */
+
+function copyScript() {
+
+    const code =
+        document
+        .getElementById("scriptCode")
+        .innerText;
+
+    const button =
+        document
+        .getElementById("copyButton");
+
+
+    navigator.clipboard
+        .writeText(code)
+        .then(() => {
+
+            button.innerText =
+                "✓ COPIED!";
+
+            setTimeout(() => {
+
+                button.innerText =
+                    "📋 COPY SCRIPT";
+
+            }, 2000);
+
+        })
+        .catch(() => {
+
+            /* Fallback for browsers
+               that block clipboard API */
+
+            const textarea =
+                document.createElement("textarea");
+
+            textarea.value = code;
+
+            document.body.appendChild(textarea);
+
+            textarea.select();
+
+            document.execCommand("copy");
+
+            textarea.remove();
+
+            button.innerText =
+                "✓ COPIED!";
+
+            setTimeout(() => {
+
+                button.innerText =
+                    "📋 COPY SCRIPT";
+
+            }, 2000);
+        });
+}
+
+</script>
+
+</body>
+</html>
